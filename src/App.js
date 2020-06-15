@@ -3,12 +3,9 @@ import Weather from "./components/weather/weather";
 import axios from "axios";
 import Form from "./components/form/form";
 import classes from "./App.module.css";
-
+import { API } from "./config";
 //API
-const API = {
-  key: "52cd40b3d621bb34c84ff47d643e05d7",
-  url: "http://api.openweathermap.org/data/2.5/weather?q=",
-};
+const { key, url } = API;
 
 function App() {
   const [load, setLoad] = useState(false);
@@ -26,9 +23,9 @@ function App() {
   };
   useEffect(() => {
     const res = () => {
-      if (text) {
+      if (text || load) {
         axios
-          .get(`${API.url}${text}&appid=${API.key}`)
+          .get(`${url}${text}&appid=${key}`)
           .then((res) => {
             const r = res.data;
             setLoad(true);
